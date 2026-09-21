@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Trophy, Calendar, Clock, Zap, RefreshCw, Star, ChevronDown } from 'lucide-react'
 import { supabase } from '../lib/supabase'
@@ -17,6 +17,7 @@ export default function Draw() {
   const [spinning,    setSpinning]    = useState(false)
   const [userMatch,   setUserMatch]   = useState(null)
   const [showPast,    setShowPast]    = useState(false)
+  const drawInProgress = useRef(false)
 
   useEffect(() => { fetchDraws() }, [])
 
@@ -45,11 +46,14 @@ export default function Draw() {
   }
 
   function simulateDraw() {
+    if (drawInProgress.current) return
+    drawInProgress.current = true
     setSpinning(true)
     setSimNumbers(null)
     setTimeout(() => {
       setSimNumbers(runRandomDraw())
       setSpinning(false)
+      drawInProgress.current = false
     }, 1200)
   }
 

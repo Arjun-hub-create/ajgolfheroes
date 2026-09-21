@@ -1,7 +1,7 @@
 export function runRandomDraw() {
   const numbers = []
   while (numbers.length < 5) {
-    const n = Math.floor(Math.random() * 45) + 1
+    const n = Math.floor(Math.random() * 35) + 1
     if (!numbers.includes(n)) numbers.push(n)
   }
   return numbers.sort((a, b) => a - b)
