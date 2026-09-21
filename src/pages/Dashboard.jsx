@@ -8,7 +8,7 @@ import {
 import { useScores } from '../hooks/useScores'
 import { useAuth } from '../hooks/useAuth'
 import { supabase } from '../lib/supabase'
-import { format } from 'date-fns'
+import { format, endOfMonth } from 'date-fns'
 import toast from 'react-hot-toast'
 
 const fadeUp = {
@@ -430,7 +430,7 @@ export default function Dashboard() {
                   <span className="text-white/50">Next draw</span>
                   <span className="text-white font-semibold flex items-center gap-1">
                     <Clock size={12} className="text-white/40" />
-                    End of month
+                    {format(endOfMonth(new Date()), 'dd MMM yyyy')}
                   </span>
                 </div>
               </div>
@@ -515,22 +515,29 @@ export default function Dashboard() {
               <h3 className="font-bold text-white mb-3 flex items-center gap-2">
                 <Star size={16} className="text-amber-400" /> Prize Pool
               </h3>
-              <div className="text-3xl font-black text-white mb-1">₹12,40,000</div>
-              <div className="text-xs text-white/40 mb-3">This month's total</div>
-              <div className="space-y-1.5 text-xs">
-                <div className="flex justify-between">
-                  <span className="text-white/40">Jackpot (5-match)</span>
-                  <span className="text-amber-400 font-semibold">₹4,96,000</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-white/40">2nd tier (4-match)</span>
-                  <span className="text-slate-300 font-semibold">₹4,34,000</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-white/40">3rd tier (3-match)</span>
-                  <span className="text-orange-400 font-semibold">₹3,10,000</span>
-                </div>
-              </div>
+              {(() => {
+                const pool = 1240000
+                return (
+                  <>
+                    <div className="text-3xl font-black text-white mb-1">₹{pool.toLocaleString('en-IN')}</div>
+                    <div className="text-xs text-white/40 mb-3">{format(new Date(), 'MMMM yyyy')} pool</div>
+                    <div className="space-y-1.5 text-xs">
+                      <div className="flex justify-between">
+                        <span className="text-white/40">Jackpot (5-match)</span>
+                        <span className="text-amber-400 font-semibold">₹{Math.round(pool * 0.40).toLocaleString('en-IN')}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-white/40">2nd tier (4-match)</span>
+                        <span className="text-slate-300 font-semibold">₹{Math.round(pool * 0.35).toLocaleString('en-IN')}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-white/40">3rd tier (3-match)</span>
+                        <span className="text-orange-400 font-semibold">₹{Math.round(pool * 0.25).toLocaleString('en-IN')}</span>
+                      </div>
+                    </div>
+                  </>
+                )
+              })()}
             </motion.div>
 
           </div>

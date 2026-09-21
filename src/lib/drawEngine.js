@@ -4,7 +4,7 @@ export function runRandomDraw(biasScores = []) {
   if (biasScores.length > 0) {
     const unique = [...new Set(biasScores)].filter(s => s >= 1 && s <= 45)
     const shuffled = unique.sort(() => Math.random() - 0.5)
-    const seedCount = 1 + Math.floor(Math.random() * 2) // 1 or 2
+    const seedCount = 2 + Math.floor(Math.random() * 2) // 2 or 3
     for (let i = 0; i < Math.min(seedCount, shuffled.length); i++) {
       numbers.push(shuffled[i])
     }
