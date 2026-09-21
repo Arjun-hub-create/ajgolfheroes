@@ -49,9 +49,9 @@ export default function Draw() {
     if (drawInProgress.current) return
     drawInProgress.current = true
     setSpinning(true)
-    setSimNumbers(null)
     setTimeout(() => {
-      setSimNumbers(runRandomDraw())
+      const userScoreValues = scores.map(s => s.score)
+      setSimNumbers(runRandomDraw(userScoreValues))
       setSpinning(false)
       drawInProgress.current = false
     }, 1200)
