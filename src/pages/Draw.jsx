@@ -5,7 +5,7 @@ import { supabase } from '../lib/supabase'
 import { runRandomDraw, checkMatch, getPrizeTier } from '../lib/drawEngine'
 import { useAuth } from '../hooks/useAuth'
 import { useScores } from '../hooks/useScores'
-import { format, endOfMonth } from 'date-fns'
+import { format } from 'date-fns'
 
 export default function Draw() {
   const { user }            = useAuth()
@@ -252,7 +252,7 @@ export default function Draw() {
                     <div className="text-white font-semibold text-sm">
                       {latestDraw
                         ? format(new Date(latestDraw.draw_date), 'dd MMMM yyyy')
-                        : format(endOfMonth(new Date()), 'dd MMMM yyyy')
+                        : format(new Date(), 'dd MMMM yyyy')
                       }
                     </div>
                   </div>

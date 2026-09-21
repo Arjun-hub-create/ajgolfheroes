@@ -8,7 +8,7 @@ import {
 import { useScores } from '../hooks/useScores'
 import { useAuth } from '../hooks/useAuth'
 import { supabase } from '../lib/supabase'
-import { format, endOfMonth } from 'date-fns'
+import { format } from 'date-fns'
 import toast from 'react-hot-toast'
 
 const fadeUp = {
@@ -430,7 +430,7 @@ export default function Dashboard() {
                   <span className="text-white/50">Next draw</span>
                   <span className="text-white font-semibold flex items-center gap-1">
                     <Clock size={12} className="text-white/40" />
-                    {format(endOfMonth(new Date()), 'dd MMM yyyy')}
+                    {format(new Date(), 'dd MMM yyyy')}
                   </span>
                 </div>
               </div>
